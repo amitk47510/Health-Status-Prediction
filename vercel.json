@@ -1,0 +1,14 @@
+{
+  "builds": [
+    {
+      "src": "predictHealth/wsgi.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "predictHealth/wsgi.py"
+    }
+  ]
+}
