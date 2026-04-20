@@ -22,13 +22,32 @@ from django.utils import timezone
 import json
 
 from django.contrib import messages
+import os
 
-mental_disorder_model = joblib.load('static/models/mental_disorder_prediction.pkl')
-mental_disorder_encoder = joblib.load('static/encoders/mental_disorder_encoder.pkl')
-mental_disorder_output_encoder = joblib.load('static/encoders/mental_disorder_output_encoder.pkl')
-mental_disorder_df = pd.read_csv('static/mentalDisorder.csv')
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-pcos_model = joblib.load('static/models/pcos_prediction.pkl')
+# mental_disorder_model = joblib.load('static/models/mental_disorder_prediction.pkl')
+# mental_disorder_encoder = joblib.load('static/encoders/mental_disorder_encoder.pkl')
+# mental_disorder_output_encoder = joblib.load('static/encoders/mental_disorder_output_encoder.pkl')
+# mental_disorder_df = pd.read_csv('static/mentalDisorder.csv')
+
+mental_disorder_model = joblib.load(os.path.join(BASE_DIR, 'static', 'models', 'mental_disorder_prediction.pkl'))
+
+mental_disorder_encoder = joblib.load(os.path.join(BASE_DIR, 'static', 'encoders', 'mental_disorder_encoder.pkl'))
+
+mental_disorder_output_encoder = joblib.load(os.path.join(BASE_DIR, 'static', 'encoders', 'mental_disorder_output_encoder.pkl'))
+
+mental_disorder_df = pd.read_csv(os.path.join(BASE_DIR, 'static', 'mentalDisorder.csv'))
+
+pcos_model = joblib.load(os.path.join(BASE_DIR, 'static', 'models', 'pcos_prediction.pkl'))
+
+obesity_encoder = joblib.load(os.path.join(BASE_DIR, 'static', 'encoders', 'obesity_encoder.pkl'))
+
+obesity_output_encoder = joblib.load(os.path.join(BASE_DIR, 'static', 'encoders', 'obesity_output_encoder.pkl'))
+
+obesity_model = joblib.load(os.path.join(BASE_DIR, 'static', 'models', 'obesity_prediction.pkl'))
+
+# pcos_model = joblib.load('static/models/pcos_prediction.pkl')
 
 class UserRegistrationForm(UserCreationForm):
     email = forms.EmailField()
@@ -300,9 +319,9 @@ def mental_disorder(request):
     return render(request, 'mental_disorder_prediction.html', {'form': form, 'user_name': request.user.first_name + " " + request.user.last_name})
 
 
-obesity_encoder = joblib.load('static/encoders/obesity_encoder.pkl')
-obesity_output_encoder = joblib.load('static/encoders/obesity_output_encoder.pkl')
-obesity_model = joblib.load('static/models/obesity_prediction.pkl')
+# obesity_encoder = joblib.load('static/encoders/obesity_encoder.pkl')
+# obesity_output_encoder = joblib.load('static/encoders/obesity_output_encoder.pkl')
+# obesity_model = joblib.load('static/models/obesity_prediction.pkl')
 
 @login_required
 def obesity(request):
